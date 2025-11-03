@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Trading Classroom</title>
+
+  <!-- Bootstrap -->
+  <!--  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+   -->
+  
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"> -->
+  <link rel="stylesheet" href="css/bootstrap-icons.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="#">Trading Classroom</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarMenu">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Library</a>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="#">Author</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Learn</a></li>
+            
+            </ul>
+
+        <div class="ms-auto d-flex align-items-center mt-2 mt-lg-0">
+        
+          <button id="themeToggle" class="btn btn-primary me-2"><i class="bi bi-sun"></i></button>
+          <button id="btnNew" class="btn btn-primary me-2"> <i class="bi bi-plus"></i> New Capsule</button>
+   
+          <input id="importFile" type="file" accept=".json" hidden>
+          <button id="btnImport" class="btn btn-primary  me-2">
+            <i class="bi bi-upload"></i> <span data-text="import">Import JSON</span>
+          </button>
+          <button id="btnExportAll" class="btn btn-primary me-2">
+            <i class="bi bi-cloud-arrow-down"></i> <span data-text="export">Export All</span>
+          </button>
+        
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container my-4">
+    <section id="libraryView">
+    
+      <div id="capsulesGrid" class="row g-3">
+
+      </div>
+
+      <div id="emptyState" class="text-muted mt-4 text-center" data-text="empty">
+        No capsules yet — click "New Capsule" to start.
+      </div>
+    </section>
+  </main>
+
+  <!-- Author Section -->
+  <section id="authorView" class="view d-none container my-4" style="background-color: #fff;">
+    <h2 id="authorTitle">Author</h2>
+    <br>
+    <form id="authorForm" class="mb-3" >
+      <div class="row">
+        <div class="col-md-4 mb-2">
+            <div class="input-field">
+    <input id="metaTitle" type="text" required spellcheck="false" > 
+    <label>Enter Email</label>
+  </div>
+          </div>
+        <div class="col-md-4 mb-2">
+          
+           <div class="input-field">
+    <input id="metaSubject" type="text" required spellcheck="false" > 
+    <label>Enter Subject</label>
+  </div>
+
+        </div>
+        <div class="col-md-4 mb-2">
+<select name="level" id="level" required class="form-control form-control-lg w-100">
+  
+              <option value="" disabled selected>Select Level</option>
+  <option value="beginner">Beginner</option>
+  <option value="intermediate">Intermediate</option>
+  <option value="advanced">Advanced</option>
+</select>
+  
+
+        </div>
+        
+      
+        <div class="col-md-12  mt-3">
+                  
+           <div class="textarea-field">
+              <textarea id="metaDescription"required spellcheck="false"  rows="4"></textarea>
+    <label>Description (optional)</label>
+  </div>
+
+        </div>
+     
+        <div class="col-md-12  mb-2 mt-3">
+
+            <div class="textarea-field">
+              <textarea   id="notesArea" required spellcheck="false"  rows="6"></textarea>
+    <label>Notes (One note per line)</label>
+  </div>
+
+        </div>
+
+        <div class="col-md-12">
+      <div class="card shadow-sm  mb-5">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+  <h5>Flashcards</h5>
+  <button type="button" id="AddCardBtn" class="btn btn-primary" onclick="AddCard()">
+    <i class="bi bi-plus"></i> Add Card
+  </button>
+</div>
+
+        <div class="table-responsive">
+          <table id="mainTable" class="table  align-middle">
+            <thead class="table-light text-start">
+              <tr>
+                <th scope="col">Front</th>
+                <th scope="col">Back</th>
+                <th scope="col" style="width:80px"> </th>
+              </tr>
+            </thead>
+            <tbody>
+               
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+ </div>
+
+         <div class="col-md-12">
+      <div class="card shadow-sm mb-5">
+      <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+  <h5>Questions</h5>
+  <button type="button" id="AddCardBtn" class="btn btn-primary" onclick="AddQuestion()">
+    <i class="bi bi-plus"></i> Add Question
+  </button>
+</div>  <div class="table-responsive">
+          <table id="QuestionTable" class="table  align-middle">
+            <tbody>
+               
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+ </div>
+
+ <div class="col-md-12">
+      <div class="card shadow-sm  mb-5">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+  <h5>Resource</h5>
+  <button type="button" id="AddCardBtn" class="btn btn-primary" onclick="AddResource()">
+    <i class="bi bi-plus"></i> Add Resource
+  </button>
+</div>
+
+        <div class="table-responsive">
+          <table id="ResourceTable" class="table  align-middle">
+         
+            <tbody>
+               
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+ </div>
+
+
+</div>
+
+
+      <div class="mt-3">
+        <button id="saveCapsule" class="btn btn-primary">Save Capsule</button>
+        <button id="cancelAuthor" class="btn btn-danger">Cancel</button>
+      </div>
+    </form>
+  </section>
+
+  <section id="learnView" class="view d-none container my-4">
+
+    
+
+
+    
+  </section>
+
+
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script> -->
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/author.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/learn.js"></script>
+  <script src="js/library.js"></script>
+  
+</body>
+</html>
